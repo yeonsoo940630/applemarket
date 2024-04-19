@@ -1,15 +1,19 @@
 package com.spartabasic.applemarket
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.spartabasic.applemarket.databinding.ActivityMainBinding
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -37,5 +41,39 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+//        val dialog = AlertDialog.Builder(this).setTitle("종료").setMessage("정말 종료하시겠습니까?")
+//
+//        dialog.setPositiveButton("확인") { d, _ -> d.dismiss()
+//            super.onBackPressed() }
+//        dialog.setNegativeButton("취소") { d, _ -> d.dismiss()
+//            }
+//        dialog.show()
+//
+//        Log.d("MainActivity", "===onBackPressed ===")
+
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("종료")
+        builder.setMessage("정말 종료하시겠습니까?")
+
+        val listener = DialogInterface.OnClickListener { dialog, p0 ->
+            if(p0 == DialogInterface.BUTTON_POSITIVE){
+                dialog.dismiss()
+
+                super.onBackPressed()
+
+            }
+        }
+        builder.setPositiveButton("확인", listener)
+        builder.setNegativeButton("취소", null)
+        builder.show()
+
+    }
+
+
+
 
 }
